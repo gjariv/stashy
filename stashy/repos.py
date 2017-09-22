@@ -166,7 +166,7 @@ class Repository(ResourceBase):
         return self._client.get(self.url('/branches/info/%s' % changesetId,
                                             is_branches=True))
 
-    def branches(self, filterText=None, orderBy=None, details=None):
+    def branches(self, filterText=None, orderBy=None, details=None, base=None):
         """
         Retrieve the branches matching the supplied filterText param.
         """
@@ -177,6 +177,8 @@ class Repository(ResourceBase):
             params['orderBy'] = orderBy
         if details is not None:
             params['details'] = details
+        if base is not None:
+            params['base'] = base
         return self.paginate('/branches', params=params)
 
     default_branch = property(_get_default_branch, _set_default_branch, doc="Get or set the default branch")
